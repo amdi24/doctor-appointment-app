@@ -63,7 +63,8 @@
     "location": "CampusCare Main Clinic",
     "availableDays": [
       "Wednesday",
-      "Thursday"
+      "Thursday",
+      "Friday"
     ],
     "bio": "Provides neurological consultation and follow-up care."
   }
