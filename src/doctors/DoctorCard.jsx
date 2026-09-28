@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import Card from "../ui/Card";
-export default function DoctorCard({doctor,}) {
-
+import doctorImages from "../assets/doctorImages";
+export default function DoctorCard({ doctor }) {
   return (
     <Card>
-      <div className="avatar">{doctor.name.charAt(3)}</div>
-      <p className="eyebrow">{doctor.department}</p>
+      <img className="doctors" src={doctorImages[doctor.image]}  alt={doctor.name} />
+      <p className="doctors1">{doctor.department}</p>
       <h2>{doctor.name}</h2>
-      <p> {doctor.specialization}</p>
-      <p> {doctor.experience} {" "} years of experience</p>
+      <p>{doctor.specialization}</p>
+      <p>{doctor.experience} years of experience</p>
       <Link className="button" to={`/doctors/${doctor.id}`}>View details</Link>
- </Card>
+    </Card>
   );
 }

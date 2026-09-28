@@ -3,7 +3,7 @@ const AppointmentContext =createContext(null);
 function appointmentReducer(state,action) {
   switch (action.type) {
     case "add":
-      return [...state,action.appointment,];
+      return [...state,action.appointment];
       case "remove":
         return state.filter((appointment) =>appointment.id !==action.id);
         case "clear":
@@ -11,23 +11,31 @@ function appointmentReducer(state,action) {
           default:throw new Error(`Unknown appointment action: ${action.type}`);
   }
 }
-export function AppointmentProvider({children,}) 
-{const [appointments,dispatch,] = useReducer(appointmentReducer,[]);
-const value = useMemo(() => ({appointments,addAppointment:(appointment) =>dispatch({
-            type: "add",
-            appointment,
-          }),
+function getInitialAppointments() {
+  const saved = localStorage.getItem("appointments");
+  return saved ? JSON.parse(saved) : [];
+}
 
-      removeAppointment:(id) =>dispatch({
-            type: "remove",
-            id,
-          }),
-
-      clearAppointments:() =>dispatch({
-            type: "clear",
-          }),    }),[appointments] );
-        
-        
+export function AppointmentProvider({ children }) {
+  const [appointments, dispatch] = useReducer(appointmentReducer,[],getInitialAppointments);
+  const value = useMemo(() => ({appointments,
+      addAppointment: (appointment) =>
+        dispatch({
+          type: "add",
+          appointment,
+        }),
+      removeAppointment: (id) =>dispatch({
+          type: "remove",
+          id,
+        }),
+      clearAppointments: () =>
+        dispatch({
+          type: "clear",
+        }),
+    }),
+    [appointments]
+  );
+   localStorage.setItem("appointments",JSON.stringify(appointments));
   return (
     <AppointmentContext.Provider value={value}>
       {children}

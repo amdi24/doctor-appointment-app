@@ -19,7 +19,7 @@ if (loading)
     { return (<Loading  message="Loading doctors..."/>);
   }
 if (error)
-     { return ( <ErrorMessage message={error} />);
+     { return ( <ErrorMessage />);
   }
 
  return (
