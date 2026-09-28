@@ -9,6 +9,7 @@ export default function Login() {
   const from = location.state?.from?.pathname || "/doctors";
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email , setEmail] = useState(" ");
   const [error, setError] = useState("");
   function handleSubmit(event) {
     event.preventDefault();
@@ -16,11 +17,15 @@ export default function Login() {
       setError("Enter your name.");
       return;
     }
-    if (/^(\+251|0)9\d{8}$/.test( phone.trim() )) {
+    if (!/^(\+251|0)9\d{8}$/.test( phone.trim() )) {
       setError("Enter a valid phone number." );
        return;
     }
-    login(phone,name);
+    if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.trim())){
+      setError("Enter a valid email");
+      return;
+    }
+    login(phone,name,email);
     navigate(from,
       {replace: true,}
     );
@@ -30,16 +35,20 @@ export default function Login() {
     <main className="container page">
       <section className="form-layout">
         <Card>
-          <p className="eyebrow"> CampusCare </p>
+          <p className="eyebrow"> Campus Care </p>
           <h1>  Sign in </h1>
           <p> Sign in before booking an appointment.</p>
           <form  onSubmit={handleSubmit}   noValidate >
           <label>Name
-          <input value={name} onChange={(event) => setName(event.target.value)}/>
+          <input value={name} onChange={(event) => setName(event.target.value)} required/>
           </label>
           <label> Phone
-          <input value={phone} onChange={(event) =>setPhone(event.target.value)}/>
-          </label>{error && (
+          <input value={phone} onChange={(event) =>setPhone(event.target.value) } required/>
+          </label>
+          <label >Email 
+            <input value={email} onChange={(event)=>setEmail(event.target.value)} required/>
+          </label>
+          {error && (
           <p className="field-error"> {error}</p>)}
           <button className="button" type="submit">Sign in </button>
           </form>

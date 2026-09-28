@@ -1,8 +1,6 @@
-export default function Card({children,className = "",}) {
+export default function Card({children}) {
   return (
-    <div
-      className={`card ${className}`}
-    >
+    <div>
       {children}
     </div>
   );

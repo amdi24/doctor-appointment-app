@@ -7,10 +7,18 @@ useEffect(() => {const controller = new AbortController();
   async function load() {setLoading(true);
       setError(null);
       try {
-        const response =await fetch(url,
-            {signal:controller.signal,}
-          );
-        if (!response.ok) {throw new Error(`Request failed (${response.status})`);}
+
+          await new Promise((resolve) =>
+          setTimeout(resolve, 1000)
+        );
+
+        const response = await fetch(url, {
+          signal: controller.signal,
+          // to test not docter 
+        // const response = await fetch("/wrongfile.json", {
+  signal: controller.signal,
+});
+        if (!response.ok) {throw new Error(`Request failed`);}
         
           const result =await response.json();
           setData(result);}

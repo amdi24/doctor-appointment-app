@@ -10,10 +10,11 @@ function getStoredUser() {
 }
 export function AuthProvider({children,}) {
   const [user,setUser] = useState(getStoredUser);
-  function login(phone,name = "Student") {
+  function login(phone,name , email) {
     const nextUser = {
-      name:name.trim() ||"Student",
+      name:name.trim() ,
       phone:phone.trim(),
+      email:email.trim(),
     };
     localStorage.setItem("campuscare-user",
       JSON.stringify(nextUser)
@@ -30,8 +31,7 @@ export function AuthProvider({children,}) {
     [user]
   );
   return (
-    <AuthContext.Provider
-      value={value}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
@@ -39,7 +39,7 @@ export function AuthProvider({children,}) {
 export function useAuth() {
   const context =useContext(AuthContext);
   if (!context) {throw new Error(
-      "useAuth must be used inside AuthProvider"
+      "Not found "
     );
   }
   return context;

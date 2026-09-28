@@ -15,7 +15,7 @@ if (loading) {
   }
 if (error) {
   return (
-      <ErrorMessage message={error}/>);
+      <ErrorMessage message="Something is wrong"/>);
   }
 if (!doctor) {
   return (
