@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { useAppointments } from "./AppointmentContext";
 import Card from "../ui/Card";
+import { useAppointmentStore } from "./appointmentStore";
 import EmptyState from "../ui/EmptyState";
 
 export default function AppointmentHistory() {
-  const { appointments, removeAppointment, clearAppointments } = useAppointments();
+const appointments = useAppointmentStore((state) => state.appointments);
+const removeAppointment = useAppointmentStore((state) => state.removeAppointment);
+const clearAppointments = useAppointmentStore((state) => state.clearAppointments);
   if (appointments.length === 0) {
     return (
       <EmptyState title="No appointments yet" message="Book a doctor first" />
@@ -14,7 +16,7 @@ export default function AppointmentHistory() {
     <section>
       <div className="section-heading">
         <div>
-          <p className="eyebrow"> Your appointments </p>
+          <p > Your appointments </p>
           <h1>Appointment history</h1>
         </div>
         <Link className="button" to="/doctors">Book another</Link>
@@ -25,7 +27,7 @@ export default function AppointmentHistory() {
           <Card key={appointment.id}>
             <div className="appointment-row">
               <div>
-                <p className="eyebrow">{appointment.department}</p>
+                <p >{appointment.department}</p>
                 <h2>{appointment.doctorName}</h2>
                 <p>{appointment.date} at {appointment.time}</p>
                 <p>Patient: {appointment.patientName}</p>
