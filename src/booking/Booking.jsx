@@ -5,11 +5,13 @@ import Loading from "../ui/Loading";
 import ErrorMessage from "../ui/ErrorMessage";
 import NotFound from "../ui/NotFound";
 import { useFetch } from "../hooks/useFetch";
-import { useAppointments } from "../appointments/AppointmentContext";
+import { useAppointmentStore } from "../appointments/appointmentStore";
 export default function Booking() {
   const { doctorId } = useParams();
   const navigate = useNavigate();
-  const {addAppointment,} = useAppointments(); 
+    const addAppointment = useAppointmentStore(
+    (state) => state.addAppointment
+  );
   const {data,loading,error,} = useFetch("/doctors.json");
   const [form, setForm] = useState({patientName: "",date: "",time: "",});
   const [errors, setErrors] =useState({});
@@ -89,18 +91,12 @@ export default function Booking() {
     );
     setSubmitting(false);
   }
-
-
   return (
     <section className="booking">
       <Card>
         <p className="eyebrow">  Book an appointment  </p>
         <h1> Book with {doctor.name}</h1>
-        <p>Department:{" "}
-          <strong>
-            {doctor.department}
-          </strong>
-        </p>
+        <p>Department:{" "}<strong>{doctor.department}</strong></p>
         <form onSubmit={handleSubmit}   noValidate>                               
           <div className="field">
             <label htmlFor="patientName">  Your name  </label>
@@ -141,16 +137,8 @@ export default function Booking() {
               <p className="error"> {errors.time}  </p>
                  )}                        
           </div>       
-          <button
-            className="button"
-            type="submit"
-            disabled={submitting}
-          >
-            {submitting
-              ? "Booking..."
-              : "Book appointment"}
-
-          </button>
+          <button className="button" type="submit" disabled={submitting}>
+            {submitting? "Booking...": "Book appointment"}</button>
         </form>
       </Card>
 

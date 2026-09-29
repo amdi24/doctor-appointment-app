@@ -19,39 +19,11 @@ export default function Confirmation() {
         <h1> Appointment booked  </h1>               
         <p>Your appointment has been added to your appointment history.</p>        
         <div className="summary">
-          <p>
-            <strong>
-              Doctor:
-            </strong>{" "}
-            {appointment.doctorName}
-          </p>
-
-          <p>
-            <strong>
-              Department:
-            </strong>{" "}
-            {appointment.department}
-          </p>
-
-          <p>
-            <strong>
-              Date:
-            </strong>{" "}
-            {appointment.date}
-          </p>
-
-          <p>
-            <strong>
-              Time:
-            </strong>{" "}
-            {appointment.time}
-          </p>
-          <p>
-            <strong>
-              Patient:
-            </strong>{" "}
-            {appointment.patientName}
-          </p>
+          <p><strong>Doctor:</strong>{" "} {appointment.doctorName}</p>
+          <p><strong>Department:</strong>{" "}{appointment.department}</p>
+          <p><strong>Date:</strong>{" "}{appointment.date}</p>
+          <p><strong>Time:</strong>{" "}{appointment.time}</p>
+          <p><strong> Patient:</strong>{" "}{appointment.patientName}</p>
         </div>
         <div className="button-row">
           <Link className="button" to="/appointments">  View appointments </Link>

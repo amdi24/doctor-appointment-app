@@ -5,7 +5,7 @@ import ErrorMessage from "../ui/ErrorMessage";
 import EmptyState from "../ui/EmptyState";
 import Card from "../ui/Card";
 export default function DoctorDetail() {
-const { id } = useParams();
+const { id } = useParams();//reads dynamic values from url
 const {data,loading,error,} = useFetch("/doctors.json");
 const doctor =data?.find((doctor) =>doctor.id === id);
 if (loading) {
