@@ -16,7 +16,7 @@ useEffect(() => {const controller = new AbortController();
           signal: controller.signal,
           // to test not docter 
         // const response = await fetch("/wrongfile.json", {
-  signal: controller.signal,
+  // signal: controller.signal,
 });
         if (!response.ok) {throw new Error(`Request failed`);}
         
